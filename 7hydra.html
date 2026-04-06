@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="7Hydra - A Ordem do Submundo, uma irmandade solene unida pelo caos, lealdade e poder ancestral, comprometida com a honra e a unidade.">
+  <meta name="keywords" content="7Hydra, Hydra Family, Pecados Capitais, Cavaleiros do Apocalipse, irmandade, caos, lealdade">
+  <title>7Hydra - A Ordem do Submundo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #e6b800; /* Dourado brilhante */
+      --secondary: #a30000; /* Vermelho escuro intenso */
+      --dark: #000000; /* Preto forte */
+      --light: #f0f0f0; /* Branco suave */
+      --accent: #2a2a2a; /* Cinza escuro */
+      --glass-bg: rgba(255, 255, 255, 0.08);
+      --glass-border: rgba(255, 255, 255, 0.15);
+      --glass-blur: blur(6px);
+      --glow: 0 0 8px rgba(230, 184, 0, 0.3);
+      --border-radius: 8px;
+      --transition: all 0.3s ease;
+      --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.4);
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 62.5%;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      line-height: 1.6;
+      color: var(--light);
+      background: var(--dark); /* Preto forte como fundo */
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .particles {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+      background: url('https://www.transparenttextures.com/patterns/dark-mosaic.png') repeat;
+      opacity: 0.1;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 1.5rem 2rem;
+      background: rgba(0, 0, 0, 0.95); /* Preto forte com transparência */
+      backdrop-filter: var(--glass-blur);
+      z-index: 1000;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    .navbar a {
+      color: var(--light);
+      text-decoration: none;
+      font-family: 'Cinzel', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      padding: 0.8rem 1.5rem;
+      border-radius: 6px;
+      transition: var(--transition);
+    }
+
+    .navbar a:hover {
+      background: var(--glass-bg);
+      color: var(--primary);
+      box-shadow: var(--glow);
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 2.4rem;
+      color: var(--light);
+      cursor: pointer;
+      position: absolute;
+      right: 2rem;
+      top: 1.5rem;
+    }
+
+    .hero-section {
+      position: relative;
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 1.5rem;
+      overflow: hidden;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.7));
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 100%;
+      padding: 0 1rem;
+    }
+
+    .hero-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(3rem, 8vw, 5rem);
+      font-weight: 900;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      line-height: 1.2;
+      margin-bottom: 2rem;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+      color: var(--light);
+      opacity: 0.9;
+      margin-bottom: 2.5rem;
+      font-weight: 400;
+    }
+
+    .card {
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--border-radius);
+      padding: 2.5rem;
+      margin: 2rem 1rem;
+      box-shadow: var(--shadow-md);
+      transition: var(--transition);
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 20px rgba(230, 184, 0, 0.2);
+    }
+
+    .card h2 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(2.4rem, 5vw, 3rem);
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+    }
+
+    .card p {
+      font-size: clamp(1.4rem, 2.5vw, 1.6rem);
+      color: var(--light);
+      margin-bottom: 1rem;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1.5rem;
+      font-size: clamp(1.2rem, 2vw, 1.4rem);
+    }
+
+    .data-table th, .data-table td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .data-table th {
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      color: var(--light);
+      font-family: 'Cinzel', serif;
+    }
+
+    .data-table td {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .data-table i {
+      margin-right: 0.8rem;
+    }
+
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-top: 2rem;
+      padding: 1rem 2rem;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      color: var(--light);
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.4rem, 2.5vw, 1.6rem);
+      border: none;
+      border-radius: var(--border-radius);
+      text-decoration: none;
+      transition: var(--transition);
+      box-shadow: var(--glow);
+    }
+
+    .action-btn:hover {
+      background: linear-gradient(45deg, var(--secondary), var(--primary));
+      transform: scale(1.03);
+    }
+
+    .video-section {
+      text-align: center;
+      margin: 3rem 1rem;
+    }
+
+    .video-section iframe {
+      border-radius: var(--border-radius);
+      border: 1px solid var(--primary);
+      width: 100%;
+      max-width: 800px;
+      height: auto;
+      aspect-ratio: 16/9;
+    }
+
+    .quote-section {
+      text-align: center;
+      padding: 3rem 1.5rem;
+      background: linear-gradient(180deg, rgba(230, 184, 0, 0.05), transparent);
+      margin: 3rem 0;
+    }
+
+    .quote-section p {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.8rem, 3vw, 2.2rem);
+      color: var(--primary);
+      text-shadow: var(--glow);
+    }
+
+    .social-links {
+      text-align: center;
+      margin: 3rem 0;
+    }
+
+    .social-links a {
+      color: var(--primary);
+      font-size: 2.5rem;
+      margin: 0 1.5rem;
+      transition: var(--transition);
+    }
+
+    .social-links a:hover {
+      color: var(--secondary);
+      transform: scale(1.1);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: rgba(0, 0, 0, 0.98);
+      border-top: 1px solid var(--primary);
+      margin-top: 3rem;
+    }
+
+    footer p {
+      font-size: clamp(1.2rem, 2vw, 1.4rem);
+      color: var(--light);
+      opacity: 0.8;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.95);
+        padding: 1rem 0;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .navbar a {
+        font-size: 1.8rem;
+        padding: 1rem;
+        width: 100%;
+        text-align: center;
+      }
+
+      .hero-section {
+        min-height: 60vh;
+        padding: 3rem 1rem;
+      }
+
+      .hero-title {
+        font-size: clamp(2.5rem, 7vw, 4rem);
+      }
+
+      .hero-subtitle {
+        font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+      }
+
+      .card {
+        padding: 2rem;
+        margin: 2rem 0.5rem;
+      }
+
+      .data-table {
+        font-size: clamp(1.1rem, 2vw, 1.3rem);
+      }
+
+      .data-table th, .data-table td {
+        padding: 0.8rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-title {
+        font-size: clamp(2rem, 6vw, 3.2rem);
+      }
+
+      .hero-subtitle {
+        font-size: clamp(1.1rem, 2vw, 1.4rem);
+      }
+
+      .card h2 {
+        font-size: clamp(2rem, 4vw, 2.4rem);
+      }
+
+      .card p {
+        font-size: clamp(1.2rem, 2vw, 1.4rem);
+      }
+
+      .action-btn {
+        padding: 0.8rem 1.5rem;
+        font-size: clamp(1.2rem, 2vw, 1.4rem);
+      }
+
+      .social-links a {
+        font-size: 2rem;
+        margin: 0 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="particles"></div>
+  <nav class="navbar">
+    <i class="fas fa-bars menu-toggle"></i>
+    <div class="nav-links">
+      <a href="#historia">História</a>
+      <a href="#fundadores">Fundadores</a>
+      <a href="#pecados">Pecados</a>
+      <a href="#uniao">Irmandade</a>
+    </div>
+  </nav>
+
+  <section class="hero-section">
+    <div class="hero-overlay"></div>
+    <picture>
+      <source media="(max-width: 768px)" srcset="https://images.unsplash.com/photo-1542838687-9a351a4e2173?auto=format&fit=crop&w=800&h=1200&q=80" type="image/webp">
+      <source media="(min-width: 769px)" srcset="https://images.unsplash.com/photo-1542838687-9a351a4e2173?auto=format&fit=crop&w=1600&h=900&q=80" type="image/webp">
+      <img src="https://images.unsplash.com/photo-1542838687-9a351a4e2173?auto=format&fit=crop&w=1600&h=900&q=80" alt="Dark gothic throne room representing the 7Hydra Order" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;">
+    </picture>
+    <div class="hero-content">
+      <h1 class="hero-title">7Hydra<br>A Ordem do Submundo</h1>
+      <p class="hero-subtitle">Uma irmandade solene, forjada no caos, unida pela lealdade e guiada pelo poder ancestral</p>
+      <a href="https://discord.gg/evom" target="_blank" class="action-btn"><i class="fab fa-discord"></i> Ingressar na Ordem</a>
+    </div>
+  </section>
+
+  <main>
+    <section id="historia" class="card">
+      <h2>História da Ordem</h2>
+      <p>Nos confins das sombras digitais, a 7Hydra foi instituída como um bastião para aqueles que prosperam na interseção do caos e da honra. Não somos apenas uma comunidade, mas uma ordem sagrada, consolidada pelas adversidades e pelo compromisso inabalável.</p>
+      <p>Convidamos todos a conhecer a Hydra Family, onde detalhamos nossa estrutura, os líderes que regem nosso domínio e as linhagens que formam nossa essência.</p>
+      <p>A Ordem é regida pelos Pecados Capitais e pelos Cavaleiros do Apocalipse, símbolos de força, determinação e significado. Estas referências, escolhidas pelos nossos fundadores, unificam a visão da 7Hydra em um propósito elevado.</p>
+      <p>As linhagens, sob a liderança dos pecados e cavaleiros, são os fundamentos de nossa irmandade. Cada membro é acolhido sob a tutela de um líder, forjando vínculos perpétuos de fidelidade.</p>
+      <p>Nos primórdios, éramos apenas um coletivo. Ideias díspares, diálogos intensos e, inevitavelmente, conflitos. O orgulho e a vaidade floresceram, e o que outrora era promissor ruiu. De um lado, a resistência à transformação; do outro, a visão de um futuro grandioso. A cisão era inevitável.</p>
+      <p>Contudo, do caos emergiu a Ordem. Não por decreto, mas por escolha resoluta. Aqueles que permaneceram não buscaram repetir os erros, mas erguer algo novo, indomável e eterno — a 7Hydra.</p>
+    </section>
+
+    <div class="quote-section">
+      <p>"No caos, instituímos a ordem. Na guerra, consolidamos a lealdade."</p>
+    </div>
+
+    <section id="fundadores" class="card">
+  <h2>Global Owners</h2>
+  <p>Os donos globais da 7Hydra são a mente por trás da Ordem, conduzindo nossa irmandade com visão estratégica e liderança absoluta.</p>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Codinome</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Nova</td>
+        <td><i class="fas fa-skull-crossbones"></i></td>
+      </tr>
+      <tr>
+        <td>Settz</td>
+        <td><i class="fas fa-bone"></i></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+    <section id="pecados" class="card">
+  <h2>Global Administration - 7Hydra</h2>
+  <p>A Administração Global representa a liderança estratégica que mantém a ordem e o poder da 7Hydra. Cada membro carrega uma virtude distorcida como símbolo de sua essência dominante.</p>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Cargo</th>
+        <th>Membro</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><i class="fas fa-heart"></i> Luxúria</td>
+        <td>Beatriz</td>
+      </tr>
+      <tr>
+        <td><i class="fas fa-crown"></i> Orgulho</td>
+        <td>yMary</td>
+      </tr>
+      <tr>
+        <td><i class="fas fa-fire"></i> Ira</td>
+        <td>Marcos</td>
+      </tr>
+      <tr>
+        <td><i class="fas fa-coins"></i> Avareza</td>
+        <td>Ziih</td>
+      </tr>
+      <tr>
+        <td><i class="fas fa-bed"></i> Preguiça</td>
+        <td>Mítico</td>
+      </tr>
+      <tr>
+        <td><i class="fas fa-eye"></i> Inveja</td>
+        <td>Nali</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+    <div class="video-section">
+      <iframe src="https://www.youtube.com/embed/NKtbPKvM8fA?si=_gHbO_kEizQ485Pl" title="Hino Oficial da 7Hydra" frameborder="0" allowfullscreen></iframe>
+    </div>
+
+    <section id="uniao" class="card">
+      <h2>A Irmandade</h2>
+      <p>Das profundezas do submundo, emergem guerreiros marcados pelos pecados, cada um portador de uma linhagem ancestral e solene.</p>
+      <p>Essas linhagens não são meras heranças, mas decretos poderosos, transmitidos através das gerações, moldando os cavaleiros com glória e sacrifício.</p>
+      <p>Unidos, eles se erguem como guardiões do caos e da honra. Vinculados pelo sangue, pela guerra e pela lealdade eterna, a 7Hydra é mais do que uma ordem — é um legado.</p>
+    </section>
+
+    <section class="card" style="text-align: center;">
+      <h2>Ingresso na Ordem</h2>
+      <p>Junte-se à 7Hydra e abrace o chamado do caos que define nosso legado.</p>
+      <a href="https://discord.gg/7hydra" target="_blank" class="action-btn"><i class="fab fa-discord"></i> Tornar-se Membro</a>
+    </section>
+
+    <div class="social-links">
+      <a href="https://discord.gg/evom" target="_blank"><i class="fab fa-discord"></i></a>
+      <a href="https://twitter.com/7hydra" target="_blank"><i class="fab fa-twitter"></i></a>
+      <a href="https://instagram.com/7hydra" target="_blank"><i class="fab fa-instagram"></i></a>
+    </div>
+
+    <footer>
+      <p>© 2025 7Hydra. Instituída no Caos, Consolidada na Lealdade. Jp creator </p>
+    </footer>
+  </main>
+
+  <script>
+    // Menu hamburguer
+    document.querySelector('.menu-toggle').addEventListener('click', () => {
+      document.querySelector('.nav-links').classList.toggle('active');
+    });
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+      const navbar = document.querySelector('.navbar');
+      navbar.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Intersection Observer para cards
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = 1;
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.3 });
+
+    document.querySelectorAll('.card').forEach((card) => {
+      card.style.opacity = 0;
+      card.style.transform = 'translateY(20px)';
+      card.style.transition = 'all 0.6s ease';
+      observer.observe(card);
+    });
+
+    // Lazy load images
+    document.addEventListener('DOMContentLoaded', () => {
+      const images = document.querySelectorAll('img');
+      const options = { threshold: 0.1 };
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            img.src = img.dataset.src || img.src;
+            observer.unobserve(img);
+          }
+        });
+      }, options);
+      images.forEach(img => observer.observe(img));
+    });
+  </script>
+</body>
+</html>
